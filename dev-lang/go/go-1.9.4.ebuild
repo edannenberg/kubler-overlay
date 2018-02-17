@@ -27,6 +27,9 @@ x86-fbsd? ( ${BOOTSTRAP_DIST}/go-freebsd-386-${BOOTSTRAP_VERSION}.tbz )
 x64-macos? ( ${BOOTSTRAP_DIST}/go-darwin-amd64-${BOOTSTRAP_VERSION}.tbz )
 x64-solaris? ( ${BOOTSTRAP_DIST}/go-solaris-amd64-${BOOTSTRAP_VERSION}.tbz )
 "
+BOOTSTRAP_SRC_VERSION="1.4-bootstrap-20171003"
+BOOTSTRAP_SRC_ARCHIVE="go${BOOTSTRAP_SRC_VERSION}.tar.gz"
+BOOTSTRAP_SRC_URI="https://dl.google.com/go/${BOOTSTRAP_SRC_ARCHIVE}"
 
 case ${PV}  in
 *9999*)
@@ -49,14 +52,15 @@ case ${PV}  in
 		;;
 	esac
 esac
-SRC_URI+="!gccgo? ( ${BOOTSTRAP_URI} )"
+SRC_URI+="!gccgo? ( !srcgo? ( ${BOOTSTRAP_URI} ) ) srcgo? ( ${BOOTSTRAP_SRC_URI} )"
 
 DESCRIPTION="A concurrent garbage collected and typesafe programming language"
 HOMEPAGE="https://golang.org"
 
 LICENSE="BSD"
 SLOT="0/${PV}"
-IUSE="gccgo"
+IUSE="gccgo srcgo"
+REQUIRED_USE="gccgo? ( !srcgo )"
 
 DEPEND="gccgo? ( >=sys-devel/gcc-5[go] )"
 RDEPEND="!<dev-go/go-tools-0_pre20150902"
@@ -154,21 +158,37 @@ src_unpack()
 	if [[ ${PV} = 9999 ]]; then
 		git-r3_src_unpack
 	fi
-	default
+	# unfortunately the top level dir in the bootstrap and release archives clash as both extract to ./go/
+	local go_src_file
+	for go_src_file in ${A[@]}; do
+		if [[ "${go_src_file}" == "${BOOTSTRAP_SRC_ARCHIVE}" ]]; then
+			mkdir "${WORKDIR}/go${BOOTSTRAP_SRC_VERSION}"
+			tar xzf "${DISTDIR}/${BOOTSTRAP_SRC_ARCHIVE}" -C "${WORKDIR}/go${BOOTSTRAP_SRC_VERSION}" --strip 1
+		elif [ "${go_src_file}" != "" ]; then
+			unpack "${go_src_file}"
+		fi
+	done
 }
 
 src_compile()
 {
-	export GOROOT_BOOTSTRAP="${WORKDIR}"/go-$(go_os)-$(go_arch)-bootstrap
-	if use gccgo; then
-		mkdir -p "${GOROOT_BOOTSTRAP}/bin" || die
-		local go_binary=$(gcc-config --get-bin-path)/go-$(gcc-major-version)
-		[[ -x ${go_binary} ]] || go_binary=$(
-			find "${EPREFIX}"/usr/${CHOST}/gcc-bin/*/go-$(gcc-major-version) |
-				sort -V | tail -n1)
-		[[ -x ${go_binary} ]] ||
-			die "go-$(gcc-major-version): command not found"
-		ln -s "${go_binary}" "${GOROOT_BOOTSTRAP}/bin/go" || die
+	if use srcgo; then
+		export GOROOT_BOOTSTRAP="${WORKDIR}/go${BOOTSTRAP_SRC_VERSION}"
+		cd "${GOROOT_BOOTSTRAP}"/src
+		env CGO_ENABLED=0 ./make.bash
+		cd "${S}"
+	else
+		export GOROOT_BOOTSTRAP="${WORKDIR}"/go-$(go_os)-$(go_arch)-bootstrap
+		if use gccgo; then
+			mkdir -p "${GOROOT_BOOTSTRAP}/bin" || die
+			local go_binary=$(gcc-config --get-bin-path)/go-$(gcc-major-version)
+			[[ -x ${go_binary} ]] || go_binary=$(
+				find "${EPREFIX}"/usr/${CHOST}/gcc-bin/*/go-$(gcc-major-version) |
+					sort -V | tail -n1)
+			[[ -x ${go_binary} ]] ||
+				die "go-$(gcc-major-version): command not found"
+			ln -s "${go_binary}" "${GOROOT_BOOTSTRAP}/bin/go" || die
+		fi
 	fi
 	export GOROOT_FINAL="${EPREFIX}"/usr/lib/go
 	export GOROOT="$(pwd)"
