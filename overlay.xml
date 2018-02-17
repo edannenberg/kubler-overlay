@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!-- * GITHUB TEMPLATE from https://api.gentoo.org/overlays/repositories.xml !-->
+<repositories version="1.0">
+    <repo quality="experimental" status="unofficial">
+        <name>kubler</name>
+        <description lang="en">Kubler overlay</description>
+        <homepage>https://github.com/edannenberg/kubler-overlay.git</homepage>
+        <owner type="person">
+            <email>erik.dannenberg@xtrade-gmbh.de</email>
+            <name>Erik Dannenberg</name>
+        </owner>
+        <source type="git">https://github.com/edannenberg/kubler-overlay.git</source>
+        <source type="git">git://github.com/edannenberg/kubler-overlay.git</source>
+        <source type="git">git@github.com:edannenberg/kubler-overlay.git</source>
+        <feed>https://github.com/edannenberg/kubler-overlay/commits/master.atom</feed>
+    </repo>
+</repositories>
