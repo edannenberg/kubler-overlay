@@ -8,7 +8,7 @@ export CTARGET=${CTARGET:-${CHOST}}
 
 MY_PV=${PV/_/}
 
-inherit toolchain-funcs
+inherit toolchain-funcs eutils
 
 BOOTSTRAP_DIST="https://dev.gentoo.org/~williamh/dist"
 BOOTSTRAP_VERSION="bootstrap-1.8"
@@ -168,6 +168,14 @@ src_unpack()
 			unpack "${go_src_file}"
 		fi
 	done
+}
+
+src_prepare()
+{
+    epatch "${FILESDIR}/default-buildmode-pie.patch"
+    epatch "${FILESDIR}/make-sure-R0-is-zero-before-main-on-ppc64le.patch"
+    [[ "${CHOST}" == *"-musl" ]] && epatch "${FILESDIR}/set-external-linker.patch"
+    default
 }
 
 src_compile()
