@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>erik.dannenberg@xtrade-gmbh.de</email>
+	</maintainer>
+	<longdescription lang="en">
+		Scalable datastore for metrics, events, and real-time analytics
+	</longdescription>
+	<use>
+		<flag name="minimal">Only install a basic config file and the influxdb binaries</flag>
+	</use>
+</pkgmetadata>

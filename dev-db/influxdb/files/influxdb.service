@@ -1,0 +1,21 @@
+[Unit]
+Description=InfluxDb
+Documentation=https://influxdata.com
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=influxdb
+Group=influxdb
+Type=simple
+Restart=on-failure
+WorkingDirectory=/var/opt/influxdb
+ExecStart=/usr/bin/influxd                             \
+    --config=/etc/influxdb.conf                        \
+    --pidfile=/run/influxdb.pid
+LimitNOFILE=10000
+TimeoutStopSec=20
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,34 @@
+#!/sbin/openrc-run
+# Copyright 1999-2017 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+depend() {
+	need localmount
+}
+
+start() {
+	ebegin "Starting InfluxDB server"
+
+    checkpath -d -o "${INFLUXDB_USER}:${INFLUXDB_GROUP}" -m750 "/var/lib/influxdb/"
+
+	start-stop-daemon --start -b \
+		--make-pidfile \
+		--pidfile /run/influxdb.pid \
+		--chdir /var/opt/influxdb \
+		--user ${INFLUXDB_USER}:${INFLUXDB_GROUP} \
+		--exec /usr/bin/influxd -- \
+		-config=/etc/influxdb/influxdb.ini
+
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping influxdb server"
+
+	start-stop-daemon --stop \
+		--pidfile /run/influxdb.pid \
+		--user "${INFLUXDB_USER}" \
+		--retry=TERM/20/KILL/5
+
+	eend $?
+}
