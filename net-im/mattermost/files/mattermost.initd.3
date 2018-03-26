@@ -1,0 +1,38 @@
+#!/sbin/openrc-run
+# Copyright 1999-2017 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+depend() {
+	need localmount
+}
+
+start() {
+	ebegin "Starting mattermost server"
+
+    checkpath -d -o "${MATTERMOST_USER}:${MATTERMOST_GROUP}" -m750 "/var/lib/mattermost/dashboards"
+    checkpath -d -o "${MATTERMOST_USER}:${MATTERMOST_GROUP}" -m750 "/var/lib/mattermost/plugins"
+    checkpath -d -o "${MATTERMOST_USER}:${MATTERMOST_GROUP}" -m750 "/var/lib/mattermost/sessions"
+
+	start-stop-daemon --start -b \
+		--make-pidfile \
+		--pidfile /run/mattermost.pid \
+		--chdir /usr/share/mattermost \
+		--user ${MATTERMOST_USER}:${MATTERMOST_GROUP} \
+		--exec /usr/bin/mattermost-server -- \
+		-config=/etc/mattermost/mattermost.ini \
+		cfg:default.paths.data=/var/lib/mattermost \
+		cfg:default.paths.logs=/var/log/mattermost
+
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping mattermost server"
+
+	start-stop-daemon --stop \
+		--pidfile /run/mattermost.pid \
+		--user "${MATTERMOST_USER}" \
+		--retry=TERM/20/KILL/5
+
+	eend $?
+}

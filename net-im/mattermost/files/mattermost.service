@@ -1,0 +1,24 @@
+[Unit]
+Description=Grafana
+Documentation=http://docs.mattermost.org
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=mattermost
+Group=mattermost
+Type=simple
+Restart=on-failure
+WorkingDirectory=/usr/share/mattermost
+ExecStart=/usr/bin/mattermost-server                      \
+    --config=/etc/mattermost/mattermost.ini                  \
+    --pidfile=/run/mattermost.pid                         \
+    cfg:default.paths.logs=/var/log/mattermost            \
+    cfg:default.paths.data=/var/lib/mattermost            \
+    cfg:default.paths.plugins=/var/lib/mattermost/plugins
+LimitNOFILE=10000
+TimeoutStopSec=20
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

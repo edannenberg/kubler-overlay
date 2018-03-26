@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>erik.dannenberg@xtrade-gmbh.de</email>
+	</maintainer>
+	<longdescription lang="en">
+		Gorgeous metric viz, dashboards, editors for Graphite, InfluxDB, OpenTSDB and more
+	</longdescription>
+	<use>
+		<flag name="minimal">Only install the minimum runtime requirements</flag>
+	</use>
+</pkgmetadata>

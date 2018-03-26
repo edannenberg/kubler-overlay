@@ -1,0 +1,7 @@
+# Config file for /etc/init.d/mattermost
+
+# The user to run your application as.
+MATTERMOST_USER=mattermost
+
+# The group to run your application as.
+MATTERMOST_GROUP=mattermost
