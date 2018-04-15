@@ -8,13 +8,11 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 S_WEBAPP="${WORKDIR}/${P}/src/github.com/mattermost/mattermost-webapp"
 
 if [[ ${PV} = *9999* ]]; then
-	EGIT_REPO_URI='https://github.com/mattermost/mattermost-webapp'
-	EGIT_CHECKOUT_DIR="${S_WEBAPP}"
-	inherit golang-vcs git-r3
+	inherit golang-vcs
 else
-	WEBAPP_EGIT_COMMIT="5bd990c"
+	WEBAPP_EGIT_COMMIT="ac13f18"
 	WEBAPP_ARCHIVE_URI="https://github.com/mattermost/mattermost-webapp/archive/${WEBAPP_EGIT_COMMIT}.tar.gz -> ${PN}-webapp-${PV}.tar.gz"
-	SERVER_EGIT_COMMIT="659ce8c"
+	SERVER_EGIT_COMMIT="3176e13"
 	SERVER_ARCHIVE_URI="https://github.com/mattermost/mattermost-server/archive/${SERVER_EGIT_COMMIT}.tar.gz -> ${PN}-server-${PV}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -28,7 +26,7 @@ SRC_URI="${SERVER_ARCHIVE_URI} ${WEBAPP_ARCHIVE_URI}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="+minimal"
 
 DEPEND="dev-lang/go net-libs/nodejs sys-apps/yarn <=media-libs/libpng-1.5.0 sys-apps/yarn app-arch/zip"
@@ -40,15 +38,9 @@ pkg_setup() {
 }
 
 src_unpack() {
-	if [[ ${PV} = 9999 ]]; then
-		golang-vcs_src_unpack
-		git-r3_fetch
-		git-r3_checkout
-	else
-		golang-vcs-snapshot_src_unpack
-		mkdir -p "${S_WEBAPP}" || die
-		tar xzf "${DISTDIR}/${PN}-webapp-${PV}.tar.gz" -C "${S_WEBAPP}" --strip 1 || die
-	fi
+	golang-vcs-snapshot_src_unpack
+	mkdir -p "${S_WEBAPP}" || die
+	tar xzf "${DISTDIR}/${PN}-webapp-${PV}.tar.gz" -C "${S_WEBAPP}" --strip 1 || die
 }
 
 src_prepare()
