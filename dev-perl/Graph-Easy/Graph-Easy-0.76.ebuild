@@ -1,0 +1,20 @@
+EAPI=6
+
+DIST_AUTHOR=SHLOMIF
+DIST_VERSION=0.76
+inherit perl-module
+
+DESCRIPTION="Render/convert graphs in/from various formats"
+
+SLOT="0"
+KEYWORDS="alpha amd64 ia64 ppc sparc x86"
+IUSE=""
+
+RDEPEND="
+	dev-perl/Digest-SHA1
+	dev-perl/Config-Tiny
+	"
+DEPEND="${RDEPEND}
+	dev-perl/Module-Build
+
+	"

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>erik.dannenberg@xtrade-gmbh.de</email>
+	</maintainer>
+	<longdescription lang="en">
+		Render/convert graphs in/from various formats
+	</longdescription>
+	<upstream>
+		<remote-id type="cpan">Graph::Easy</remote-id>
+	</upstream>
+</pkgmetadata>
