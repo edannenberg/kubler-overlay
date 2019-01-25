@@ -1,0 +1,50 @@
+# Copyright 1999-2017 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=6
+
+DESCRIPTION="A container image meta builder"
+HOMEPAGE="https://github.com/edannenberg/kubler.git"
+LICENSE="GPL-2"
+
+inherit bash-completion-r1 vcs-snapshot
+
+if [[ ${PV} = *9999* ]]; then
+	# If github snapshot is at most one hour old fetch current HEAD
+	printf -v CURRENT_DATETIME '%(%Y%m%d%H)T'
+	# download from 0.9.0 branch for now until it landed on master
+	SRC_URI="https://github.com/edannenberg/kubler/archive/0.9.0.tar.gz -> ${PN}-${CURRENT_DATETIME}.tar.gz"
+	#SRC_URI="https://github.com/edannenberg/kubler/archive/master.tar.gz -> ${PN}-${CURRENT_DATETIME}.tar.gz"
+	S="${WORKDIR}/${PN}-${CURRENT_DATETIME}"
+else
+	EGIT_COMMIT="n/a"
+	SRC_URI="https://github.com/edannenberg/kubler/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
+fi
+
+KEYWORDS="alpha amd64 arm arm64 ia64 ppc sparc x86"
+IUSE="+docker"
+SLOT="0"
+
+DEPEND=""
+RDEPEND="dev-vcs/git docker? ( app-emulation/docker app-misc/jq )"
+
+src_install() {
+	insinto /usr/share/${PN}
+	doins -r bin/ cmd/ engine/ lib/ template/ kubler.conf kubler.sh README.md COPYING
+
+	fperms 0755 /usr/share/${PN}/kubler.sh
+	dosym /usr/share/${PN}/kubler.sh /usr/bin/kubler
+
+	insinto /etc/
+	doins kubler.conf
+
+	newbashcomp lib/kubler-completion.bash ${PN}
+}
+
+pkg_postinst() {
+	elog
+	elog "Kubler's documentation can be found at /usr/share/kubler/README.md"
+	elog
+	elog "Installing app-shells/bash-completion is highly recommended!"
+	elog
+}
