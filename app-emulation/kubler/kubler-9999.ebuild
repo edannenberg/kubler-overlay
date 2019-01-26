@@ -7,16 +7,14 @@ DESCRIPTION="A container image meta builder"
 HOMEPAGE="https://github.com/edannenberg/kubler.git"
 LICENSE="GPL-2"
 
-inherit bash-completion-r1 vcs-snapshot
+inherit bash-completion-r1
 
 if [[ ${PV} = *9999* ]]; then
-	# If github snapshot is at most one hour old fetch current HEAD
-	printf -v CURRENT_DATETIME '%(%Y%m%d%H)T'
-	# download from 0.9.0 branch for now until it landed on master
-	SRC_URI="https://github.com/edannenberg/kubler/archive/0.9.0.tar.gz -> ${PN}-${CURRENT_DATETIME}.tar.gz"
-	#SRC_URI="https://github.com/edannenberg/kubler/archive/master.tar.gz -> ${PN}-${CURRENT_DATETIME}.tar.gz"
-	S="${WORKDIR}/${PN}-${CURRENT_DATETIME}"
+	inherit git-r3
+	EGIT_REPO_URI='https://github.com/edannenberg/kubler'
+	EGIT_OVERRIDE_BRANCH_EDANNENBERG_KUBLER='0.9.0'
 else
+	inherit vcs-snapshot
 	EGIT_COMMIT="n/a"
 	SRC_URI="https://github.com/edannenberg/kubler/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
