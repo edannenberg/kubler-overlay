@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -42,7 +42,7 @@ case ${PV}  in
 	case ${PV} in
 	*_beta*|*_rc*) ;;
 	*)
-		KEYWORDS="-* amd64 ~arm ~arm64 ~ppc64 ~x86 ~amd64-fbsd ~x86-fbsd ~x64-macos ~x64-solaris"
+		KEYWORDS="-* amd64 arm ~arm64 ~ppc64 ~s390 x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x64-macos ~x64-solaris"
 		# The upstream tests fail under portage but pass if the build is
 		# run according to their documentation [1].
 		# I am restricting the tests on released versions until this is
@@ -173,7 +173,6 @@ src_unpack()
 
 src_prepare()
 {
-    epatch "${FILESDIR}/default-buildmode-pie-1.10.patch"
     [[ "${CHOST}" == *"-musl" ]] && epatch "${FILESDIR}/set-external-linker-1.10.patch"
     default
 }
@@ -252,4 +251,12 @@ src_install()
 		dosym ../lib/go/${bin_path}/${f} /usr/bin/${f}
 	done
 	einstalldocs
+
+	if [[ ${CHOST} == *-darwin* ]] ; then
+		# fix install_name for test object (binutils_test) on Darwin, it
+		# is never used in real circumstances
+		local libmac64="${EPREFIX}"/usr/lib/go/src/cmd/vendor/github.com/
+		      libmac64+=google/pprof/internal/binutils/testdata/lib_mac_64
+		install_name_tool -id "${libmac64}" "${D}${libmac64}"
+	fi
 }
