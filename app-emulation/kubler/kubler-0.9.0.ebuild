@@ -14,11 +14,11 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI='https://github.com/edannenberg/kubler'
 else
 	inherit vcs-snapshot
-	EGIT_COMMIT="n/a"
+	EGIT_COMMIT="1aeaf3b"
 	SRC_URI="https://github.com/edannenberg/kubler/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
 
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~sparc ~x86"
+KEYWORDS="alpha amd64 arm arm64 ia64 ppc sparc x86"
 IUSE="+docker"
 SLOT="0"
 
