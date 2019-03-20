@@ -18,3 +18,50 @@ to your `/etc/portage/repos.conf/` dir:
 ### Using layman
 
     layman -o https://raw.githubusercontent.com/edannenberg/kubler-overlay/master/overlay.xml -f -a kubler
+
+## Ebuild Development with Kubler
+
+Can be used for any Gentoo Portage overlay, example is for this repo:
+
+1. Create a new namespace, let's call it `edev`
+
+```
+    $ kubler new namespace edev
+```
+
+2. Create a new builder, choose `kubler/bob` as `IMAGE_PARENT`:
+
+```
+    $ kubler new builder edev/bob
+```
+
+Edit the new builder's `build.sh` and add your overlay:
+
+```
+configure_builder() {
+    # we overwrite this with a local host mount later, but this takes care of the initial overlay setup in the builder for us
+    add_overlay kubler https://github.com/edannenberg/kubler-overlay.git
+    # just for convenience
+    echo 'cd /var/lib/repos/kubler' >> ~/.bashrc
+}
+```
+
+3. Create a new image, let's call it `bench`, use `kubler/bash` as `IMAGE_PARENT`:
+
+```
+    $ kubler new image edev/bench
+```
+
+Then edit the new image's `build.conf` and configure the builder and overlay path you want to mount in the builder:
+
+```
+    BUILDER="edev/bob"
+    BUILDER_MOUNTS=("/home/foo/projects/kubler-overlay:/var/lib/repos/kubler")
+```
+
+4. Start an interactive build container and get tinkering:
+
+```
+    $ kubler build -i edev/bench
+    # ebuild dev-lang/foo/foo-0.4.0.ebuild manifest merge 
+```
