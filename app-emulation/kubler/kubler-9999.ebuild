@@ -3,7 +3,7 @@
 
 EAPI=6
 
-DESCRIPTION="A container image meta builder"
+DESCRIPTION="A generic, extendable build orchestrator."
 HOMEPAGE="https://github.com/edannenberg/kubler.git"
 LICENSE="GPL-2"
 
@@ -32,6 +32,7 @@ src_install() {
 	fperms 0755 /usr/share/${PN}/kubler.sh
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/build-root.sh
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/portage-git-sync.sh
+	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/sed-or-die.sh
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/etc/portage/postsync.d/eix
 
 	dosym /usr/share/${PN}/kubler.sh /usr/bin/kubler
