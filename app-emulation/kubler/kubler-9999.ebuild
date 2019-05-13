@@ -19,11 +19,11 @@ else
 fi
 
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~sparc ~x86"
-IUSE="+docker"
+IUSE="+docker podman"
 SLOT="0"
 
 DEPEND=""
-RDEPEND="dev-vcs/git docker? ( app-emulation/docker app-misc/jq )"
+RDEPEND="dev-vcs/git docker? ( app-emulation/docker app-misc/jq ) podman? ( app-emulation/libpod )"
 
 src_install() {
 	insinto /usr/share/${PN}
