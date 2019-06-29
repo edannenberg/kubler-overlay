@@ -4,7 +4,7 @@
 EAPI=6
 
 MY_PN="${PN//-bin}"
-MY_PV="${PV}.414"
+MY_PV="${PV}.455"
 
 DESCRIPTION="General-purpose programming language with an emphasis on functional programming"
 HOMEPAGE="https://clojure.org/"
@@ -31,7 +31,7 @@ src_install() {
 	dobin clojure
 
 	insinto /usr/lib/${MY_PN}
-	doins deps.edn example-deps.edn
+	doins example-deps.edn
 
 	insinto /usr/lib/${MY_PN}/libexec
 	doins clojure-tools-${MY_PV}.jar
