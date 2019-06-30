@@ -55,7 +55,7 @@ src_compile() {
 	make build package || die
 	cd "${S}"
 	mv config/default.json config/config.json
-	env GOPATH="${WORKDIR}/${P}" make build-linux package-linux || die
+	env GOPATH="${WORKDIR}/${P}" make LDFLAGS="" build-linux package-linux || die
 }
 
 src_install() {

@@ -1,21 +1,12 @@
 diff -rupN mattermost-server/Makefile mattermost-server-patched/Makefile
 --- mattermost-server/Makefile	2019-06-29 13:07:50.396825837 +0200
-+++ mattermost-server-patched/Makefile	2019-06-29 14:02:51.139769962 +0200
++++ mattermost-server-patched/Makefile	2019-06-30 13:38:03.516793232 +0200
 @@ -1,4 +1,4 @@
 -.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist setup-mac prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows internal-test-web-client vet run-server-for-web-client-tests
 +.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist setup-mac prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows package-common package-linux package-osx package-windows internal-test-web-client vet run-server-for-web-client-tests
  
  ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
  
-@@ -49,7 +49,7 @@ GOPATH ?= $(shell go env GOPATH)
- GOFLAGS ?= $(GOFLAGS:)
- GO=go
- DELVE=dlv
--LDFLAGS += -X "github.com/mattermost/mattermost-server/model.BuildNumber=$(BUILD_NUMBER)"
-+LDFLAGS := -X "github.com/mattermost/mattermost-server/model.BuildNumber=$(BUILD_NUMBER)"
- LDFLAGS += -X "github.com/mattermost/mattermost-server/model.BuildDate=$(BUILD_DATE)"
- LDFLAGS += -X "github.com/mattermost/mattermost-server/model.BuildHash=$(BUILD_HASH)"
- LDFLAGS += -X "github.com/mattermost/mattermost-server/model.BuildHashEnterprise=$(BUILD_HASH_ENTERPRISE)"
 diff -rupN mattermost-server/build/release.mk mattermost-server-patched/build/release.mk
 --- mattermost-server/build/release.mk	2019-06-29 13:07:50.437825837 +0200
 +++ mattermost-server-patched/build/release.mk	2019-06-29 13:14:26.020819140 +0200
