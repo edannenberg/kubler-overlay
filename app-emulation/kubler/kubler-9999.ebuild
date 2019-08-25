@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="A generic, extendable build orchestrator."
 HOMEPAGE="https://github.com/edannenberg/kubler.git"
@@ -19,11 +19,14 @@ else
 fi
 
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~sparc ~x86"
-IUSE="+docker podman"
+IUSE="+docker podman +rlwrap"
 SLOT="0"
 
 DEPEND=""
-RDEPEND="dev-vcs/git docker? ( app-emulation/docker app-misc/jq ) podman? ( app-emulation/libpod )"
+RDEPEND="dev-vcs/git
+         docker? ( app-emulation/docker app-misc/jq )
+         podman? ( app-emulation/libpod )
+         rlwrap? ( app-misc/rlwrap )"
 
 src_install() {
 	insinto /usr/share/${PN}
@@ -34,6 +37,7 @@ src_install() {
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/portage-git-sync.sh
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/sed-or-die.sh
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/etc/portage/postsync.d/eix
+	fperms 0755 /usr/share/${PN}/lib/ask.sh
 
 	dosym /usr/share/${PN}/kubler.sh /usr/bin/kubler
 

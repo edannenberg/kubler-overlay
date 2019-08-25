@@ -5,10 +5,12 @@
 		<email>erik.dannenberg@xtrade-gmbh.de</email>
 	</maintainer>
 	<longdescription lang="en">
-		A container image meta builder.
+		A generic, extendable build orchestrator.
 	</longdescription>
 	<use>
 		<flag name="docker">Support Docker as build engine</flag>
+		<flag name="podman">Support libpod as build engine</flag>
+		<flag name="rlwrap">Optional rlwrap support for input history</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">edannenberg/kubler</remote-id>
