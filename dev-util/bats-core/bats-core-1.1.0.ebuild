@@ -10,6 +10,7 @@ SRC_URI="https://github.com/bats-core/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+RDEPEND="!dev-util/bats"
 
 src_test() {
 	bin/bats --tap test || die "Tests failed"
