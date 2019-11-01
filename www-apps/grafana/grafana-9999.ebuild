@@ -38,7 +38,7 @@ pkg_setup() {
 }
 
 src_compile() {
-	go run build.go build || die
+	LDFLAGS="" go run build.go build || die
 	yarn install --pure-lockfile || die
 	npm run build || die
 }

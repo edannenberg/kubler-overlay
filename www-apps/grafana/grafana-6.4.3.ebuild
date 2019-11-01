@@ -9,7 +9,7 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="fdd2117"
+	EGIT_COMMIT="3a2bfb7"
 	ARCHIVE_URI="https://github.com/grafana/grafana/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -38,7 +38,7 @@ pkg_setup() {
 }
 
 src_compile() {
-	go run build.go build || die
+	LDFLAGS="" go run build.go build  || die
 	yarn install --pure-lockfile || die
 	npm run build || die
 }
