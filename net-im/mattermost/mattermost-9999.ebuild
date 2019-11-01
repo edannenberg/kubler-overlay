@@ -53,7 +53,7 @@ src_unpack() {
 
 src_prepare()
 {
-	epatch "${FILESDIR}/package-individual-platforms.patch"
+	epatch "${FILESDIR}/package-individual-platforms-5.16.patch"
 	default
 }
 
@@ -63,7 +63,7 @@ src_compile() {
 	make build package || die
 	cd "${S}"
 	mv config/default.json config/config.json
-	env GOPATH="${WORKDIR}/${P}" make build-linux package-linux || die
+	env GOPATH="${WORKDIR}/${P}" make LDFLAGS="" build-linux package-linux || die
 }
 
 src_install() {

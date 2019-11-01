@@ -1,15 +1,6 @@
-diff -rupN mattermost-server/Makefile mattermost-server-patched/Makefile
---- mattermost-server/Makefile	2019-06-29 13:07:50.396825837 +0200
-+++ mattermost-server-patched/Makefile	2019-06-30 13:38:03.516793232 +0200
-@@ -1,4 +1,4 @@
--.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist setup-mac prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows internal-test-web-client vet run-server-for-web-client-tests
-+.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist setup-mac prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows package-common package-linux package-osx package-windows internal-test-web-client vet run-server-for-web-client-tests
- 
- ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
- 
-diff -rupN mattermost-server/build/release.mk mattermost-server-patched/build/release.mk
---- mattermost-server/build/release.mk	2019-06-29 13:07:50.437825837 +0200
-+++ mattermost-server-patched/build/release.mk	2019-06-29 13:14:26.020819140 +0200
+diff -rupN mm_org/build/release.mk mm_patched/build/release.mk
+--- mm_org/build/release.mk	2019-11-01 22:38:55.369025548 +0100
++++ mm_patched/build/release.mk	2019-11-01 22:41:20.794027145 +0100
 @@ -20,7 +20,7 @@ build-client:
  
  	cd $(BUILD_WEBAPP_DIR) && $(MAKE) build
@@ -59,3 +50,12 @@ diff -rupN mattermost-server/build/release.mk mattermost-server-patched/build/re
 +endif
  
  	rm -rf tmpprepackaged
+diff -rupN mm_org/Makefile mm_patched/Makefile
+--- mm_org/Makefile	2019-11-01 22:39:23.997025863 +0100
++++ mm_patched/Makefile	2019-11-01 22:42:40.339028018 +0100
+@@ -1,4 +1,4 @@
+-.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows internal-test-web-client vet run-server-for-web-client-tests diff-config
++.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows package-common package-linux package-osx package-windows internal-test-web-client vet run-server-for-web-client-tests diff-config
+ 
+ ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+ 
