@@ -31,7 +31,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+minimal"
 
-DEPEND="dev-lang/go net-libs/nodejs sys-apps/yarn <=media-libs/libpng-1.5.0 sys-apps/yarn app-arch/zip"
+DEPEND="dev-lang/go net-libs/nodejs sys-apps/yarn media-libs/libpng-compat sys-apps/yarn app-arch/zip dev-lang/nasm media-gfx/pngquant"
 RDEPEND=""
 
 pkg_setup() {
