@@ -10,9 +10,9 @@ S_WEBAPP="${WORKDIR}/${P}/src/github.com/mattermost/mattermost-webapp"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	WEBAPP_EGIT_COMMIT="77c98e5"
+	WEBAPP_EGIT_COMMIT="adc1915"
 	WEBAPP_ARCHIVE_URI="https://github.com/mattermost/mattermost-webapp/archive/${WEBAPP_EGIT_COMMIT}.tar.gz -> ${PN}-webapp-${PV}.tar.gz"
-	SERVER_EGIT_COMMIT="ca05184"
+	SERVER_EGIT_COMMIT="57f3ca9"
 	SERVER_ARCHIVE_URI="https://github.com/mattermost/mattermost-server/archive/${SERVER_EGIT_COMMIT}.tar.gz -> ${PN}-server-${PV}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -29,7 +29,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="+minimal"
 
-DEPEND="dev-lang/go net-libs/nodejs sys-apps/yarn media-libs/libpng-compat sys-apps/yarn app-arch/zip dev-lang/nasm media-gfx/pngquant"
+DEPEND=">=dev-lang/go-1.13.4 net-libs/nodejs sys-apps/yarn media-libs/libpng-compat sys-apps/yarn app-arch/zip dev-lang/nasm media-gfx/pngquant"
 RDEPEND=""
 
 pkg_setup() {
