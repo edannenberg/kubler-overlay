@@ -1,6 +1,6 @@
-diff -rupN mm-server-org/build/release.mk mm-server-patched/build/release.mk
---- mm-server-org/build/release.mk	2020-02-28 10:06:18.604755209 +0100
-+++ mm-server-patched/build/release.mk	2020-02-28 10:13:17.053712451 +0100
+diff -rupN mm_org/build/release.mk mm_patched/build/release.mk
+--- mm_org/build/release.mk	2020-05-04 09:49:54.554931849 +0200
++++ mm_patched/build/release.mk	2020-05-04 09:51:37.628929041 +0200
 @@ -35,7 +35,7 @@ build-client:
  
  	cd $(BUILD_WEBAPP_DIR) && $(MAKE) build
@@ -50,9 +50,9 @@ diff -rupN mm-server-org/build/release.mk mm-server-patched/build/release.mk
 +endif
  
  	rm -rf tmpprepackaged
-diff -rupN mm-server-org/build/release.mk.orig mm-server-patched/build/release.mk.orig
---- mm-server-org/build/release.mk.orig	1970-01-01 01:00:00.000000000 +0100
-+++ mm-server-patched/build/release.mk.orig	2020-02-28 10:12:44.608715766 +0100
+diff -rupN mm_org/build/release.mk.orig mm_patched/build/release.mk.orig
+--- mm_org/build/release.mk.orig	1970-01-01 01:00:00.000000000 +0100
++++ mm_patched/build/release.mk.orig	2020-05-04 09:51:37.628929041 +0200
 @@ -0,0 +1,195 @@
 +
 +dist: | check-style test package
@@ -249,12 +249,12 @@ diff -rupN mm-server-org/build/release.mk.orig mm-server-patched/build/release.m
 +	@#rm -f $(DIST_PATH)/bin/mattermost
 +
 +	rm -rf tmpprepackaged
-diff -rupN mm-server-org/Makefile mm-server-patched/Makefile
---- mm-server-org/Makefile	2020-02-28 10:06:18.534755216 +0100
-+++ mm-server-patched/Makefile	2020-02-28 10:19:50.558672241 +0100
+diff -rupN mm_org/Makefile mm_patched/Makefile
+--- mm_org/Makefile	2020-05-04 09:49:54.531931850 +0200
++++ mm_patched/Makefile	2020-05-04 09:56:47.935920587 +0200
 @@ -1,4 +1,4 @@
--.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows internal-test-web-client vet run-server-for-web-client-tests diff-config prepackaged-plugins prepackaged-binaries
-+.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows package-common package-linux package-osx package-windows internal-test-web-client vet run-server-for-web-client-tests diff-config prepackaged-plugins prepackaged-binaries
+-.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows internal-test-web-client vet run-server-for-web-client-tests diff-config prepackaged-plugins prepackaged-binaries test-server test-server-quick test-server-race
++.PHONY: build package run stop run-client run-server stop-client stop-server restart restart-server restart-client start-docker clean-dist clean nuke check-style check-client-style check-server-style check-unit-tests test dist prepare-enteprise run-client-tests setup-run-client-tests cleanup-run-client-tests test-client build-linux build-osx build-windows package-common package-linux package-osx package-windows internal-test-web-client vet run-server-for-web-client-tests diff-config prepackaged-plugins prepackaged-binaries test-server test-server-quick test-server-race
  
  ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
  
