@@ -9,7 +9,7 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="3fa63cf"
+	EGIT_COMMIT="a04ef6c"
 	ARCHIVE_URI="https://github.com/grafana/grafana/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -26,7 +26,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="+minimal"
 
-DEPEND=">=dev-lang/go-1.13.4 >=net-libs/nodejs-12.0.0 sys-apps/yarn"
+DEPEND=">=dev-lang/go-1.13.4 >=net-libs/nodejs-12.0.0[icu] <=net-libs/nodejs-13.0.0[icu] sys-apps/yarn"
 RDEPEND=""
 
 QA_EXECSTACK="usr/share/grafana/vendor/phantomjs/phantomjs"
@@ -40,7 +40,7 @@ pkg_setup() {
 src_compile() {
 	LDFLAGS="" go run build.go build  || die
 	yarn install --pure-lockfile || die
-	npm run build || die
+	./node_modules/.bin/grunt build || die
 }
 
 src_install() {

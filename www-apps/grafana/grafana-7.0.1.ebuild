@@ -9,7 +9,7 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="7a06a47"
+	EGIT_COMMIT="ef5b586"
 	ARCHIVE_URI="https://github.com/grafana/grafana/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -26,7 +26,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="+minimal"
 
-DEPEND="dev-lang/go net-libs/nodejs sys-apps/yarn"
+DEPEND=">=dev-lang/go-1.13.4 >=net-libs/nodejs-12.0.0[icu] <=net-libs/nodejs-13.0.0[icu] sys-apps/yarn"
 RDEPEND=""
 
 QA_EXECSTACK="usr/share/grafana/vendor/phantomjs/phantomjs"
@@ -38,24 +38,23 @@ pkg_setup() {
 }
 
 src_compile() {
-	go run build.go build || die
+	LDFLAGS="" go run build.go build  || die
 	yarn install --pure-lockfile || die
-	npm run build || die
+	./node_modules/.bin/grunt build || die
 }
 
 src_install() {
 	keepdir /etc/grafana
 	insinto /etc/grafana
-	newins "${S}"/conf/sample.ini grafana.ini
-	rm "${S}"/conf/sample.ini || die
+	newins "${S}"/conf/defaults.ini grafana.ini
 
 	# Frontend assets
 	insinto /usr/share/${PN}
 	doins -r public conf
 	! use minimal && doins -r vendor
 
-	dobin bin/grafana-cli
-	dobin bin/grafana-server
+	dobin bin/linux-amd64/grafana-cli
+	dobin bin/linux-amd64/grafana-server
 
 	if ! use minimal; then
 		newconfd "${FILESDIR}"/grafana.confd grafana
