@@ -153,6 +153,13 @@ src_configure() {
 		busybox_config_option n UDHCPC6
 	fi
 
+	# Disable standalone mode when creating symlinks, else the links are never used as PATH lookup is bypassed.
+	# This also enables users to disable a builtin by deleting the corresponding symlink.
+	if use make-symlinks; then
+		busybox_config_option n FEATURE_PREFER_APPLETS
+		busybox_config_option n FEATURE_SH_STANDALONE
+	fi
+
 	busybox_config_option pam PAM
 	busybox_config_option static STATIC
 	busybox_config_option syslog {K,SYS}LOGD LOGGER
