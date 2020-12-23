@@ -15,9 +15,13 @@ to your `/etc/portage/repos.conf/` dir:
     curl -sL https://raw.githubusercontent.com/edannenberg/kubler-overlay/master/kubler.conf > /etc/portage/repos.conf/kubler.conf
     emerge --sync
 
-### Using layman
+### Using eselect repository
 
-    layman -o https://raw.githubusercontent.com/edannenberg/kubler-overlay/master/overlay.xml -f -a kubler
+    # if not already installed
+    emerge app-eselect/eselect-repository
+    # ..then add the overlay 
+    eselect repository add kubler git https://github.com/edannenberg/kubler-overlay.git
+    emerge --sync
 
 ## Ebuild Development with Kubler
 
@@ -42,7 +46,7 @@ configure_builder() {
     # we overwrite this with a local host mount later, but this takes care of the initial overlay setup in the builder for us
     add_overlay kubler https://github.com/edannenberg/kubler-overlay.git
     # just for convenience
-    echo 'cd /var/lib/repos/kubler' >> ~/.bashrc
+    echo 'cd /var/db/repos/kubler' >> ~/.bashrc
 }
 ```
 
@@ -56,7 +60,7 @@ Then edit the new image's `build.conf` and configure the builder and overlay pat
 
 ```
     BUILDER="edev/bob"
-    BUILDER_MOUNTS=("/home/foo/projects/kubler-overlay:/var/lib/repos/kubler")
+    BUILDER_MOUNTS=("/home/foo/projects/kubler-overlay:/var/db/repos/kubler")
 ```
 
 4. Start an interactive build container and get tinkering:
