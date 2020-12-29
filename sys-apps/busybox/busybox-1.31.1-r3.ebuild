@@ -310,7 +310,7 @@ src_install() {
 }
 
 pkg_preinst() {
-	if use make-symlinks && [[ ! ${VERY_BRAVE_OR_VERY_DUMB} == "yes" ]] && [[ ${ROOT} == "/" ]] ; then
+	if use make-symlinks && [[ ! ${VERY_BRAVE_OR_VERY_DUMB} == "yes" ]] && [[ -z "${ROOT}" ]] ; then
 		ewarn "setting USE=make-symlinks and emerging to / is very dangerous."
 		ewarn "it WILL overwrite lots of system programs like: ls bash awk grep (bug 60805 for full list)."
 		ewarn "If you are creating a binary only and not merging this is probably ok."
