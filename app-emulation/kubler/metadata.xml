@@ -9,7 +9,7 @@
 	</longdescription>
 	<use>
 		<flag name="docker">Support Docker as build engine</flag>
-		<flag name="podman">Support libpod as build engine</flag>
+		<flag name="podman">Support podman as build engine</flag>
 		<flag name="rlwrap">Optional rlwrap support for input history</flag>
 	</use>
 	<upstream>
