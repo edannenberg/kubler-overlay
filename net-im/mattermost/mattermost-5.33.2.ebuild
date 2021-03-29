@@ -10,9 +10,9 @@ S_WEBAPP="${WORKDIR}/${P}/src/github.com/mattermost/mattermost-webapp"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	WEBAPP_EGIT_COMMIT="e73500d"
+	WEBAPP_EGIT_COMMIT="bec7b1e"
 	WEBAPP_ARCHIVE_URI="https://github.com/mattermost/mattermost-webapp/archive/${WEBAPP_EGIT_COMMIT}.tar.gz -> ${PN}-webapp-${PV}.tar.gz"
-	SERVER_EGIT_COMMIT="230fa42"
+	SERVER_EGIT_COMMIT="06e9db5"
 	SERVER_ARCHIVE_URI="https://github.com/mattermost/mattermost-server/archive/${SERVER_EGIT_COMMIT}.tar.gz -> ${PN}-server-${PV}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
