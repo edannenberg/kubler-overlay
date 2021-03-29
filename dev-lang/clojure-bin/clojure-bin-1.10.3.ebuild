@@ -4,7 +4,7 @@
 EAPI=6
 
 MY_PN="${PN//-bin}"
-MY_PV="${PV}.796"
+MY_PV="${PV}.814"
 
 DESCRIPTION="General-purpose programming language with an emphasis on functional programming"
 HOMEPAGE="https://clojure.org/"
