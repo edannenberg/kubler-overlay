@@ -18,7 +18,7 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI='https://github.com/influxdata/influxdb'
 else
 	inherit vcs-snapshot
-	EGIT_COMMIT="2a45f0c"
+	EGIT_COMMIT="e91d418"
 	SRC_URI="https://github.com/influxdata/influxdb/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
 
@@ -31,7 +31,7 @@ pkg_setup() {
 }
 
 src_compile() {
-	LDFLAGS="" make || die
+	PATH="${PATH}:${HOME}/go/bin" LDFLAGS="" make || die
 }
 
 src_install() {
