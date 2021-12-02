@@ -8,6 +8,7 @@
 		Scalable datastore for metrics, events, and real-time analytics
 	</longdescription>
 	<use>
+		<flag name="cli">Install influx cli tool to manage resources</flag>
 		<flag name="minimal">Only install a basic config file and the influxdb binaries</flag>
 	</use>
 </pkgmetadata>

@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit bash-completion-r1 user systemd
+inherit user systemd
 
 DESCRIPTION="Scalable datastore for metrics, events, and real-time analytics"
 HOMEPAGE="https://influxdata.com"
@@ -11,19 +11,19 @@ HOMEPAGE="https://influxdata.com"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+minimal"
+IUSE="+cli +minimal"
 
 if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
 	EGIT_REPO_URI='https://github.com/influxdata/influxdb'
 else
 	inherit vcs-snapshot
-	EGIT_COMMIT="4db98b4"
+	EGIT_COMMIT="657e183"
 	SRC_URI="https://github.com/influxdata/influxdb/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
 
 DEPEND="dev-lang/go dev-vcs/git dev-lang/rust sys-devel/clang dev-libs/protobuf"
-RDEPEND=""
+RDEPEND="cli? ( dev-db/influx-cli )"
 
 pkg_setup() {
 	enewgroup influxdb
@@ -31,7 +31,7 @@ pkg_setup() {
 }
 
 src_compile() {
-	LDFLAGS="" make || die
+	PATH="${PATH}:${HOME}/go/bin" LDFLAGS="" make || die
 }
 
 src_install() {
@@ -39,7 +39,6 @@ src_install() {
 	# empty as of now
 	#newins "${S}"/chronograf/etc/config.sample.toml influxdb.conf
 
-	dobin bin/linux/influx
 	dobin bin/linux/influxd
 
 	! use minimal && newinitd "${FILESDIR}"/influxdb.initd.3 influxdb
@@ -48,22 +47,9 @@ src_install() {
 	keepdir /var/lib/"${PN}"
 	fowners influxdb:influxdb /var/lib/"${PN}"
 	fperms 0750 /var/lib/"${PN}"
-
-	# remove old influx 1.x completion provided by bash-completion package
-	#[[ -f /usr/share/bash-completion/completions/influx ]] && { echo "wtf" ; rm /usr/share/bash-completion/completions/influx; }
-	#"${S}"/bin/linux/influx completion bash > "${S}"/influx-completion.bash || die
-	#newbashcomp influx-completion.bash influx || die
 }
 
 pkg_postinst() {
-	elog "Start influxd then configure a fresh install via:"
-	elog
-	elog "    influx setup"
-	elog
-	elog "To generate a current bash completion file run:"
-	elog
-	elog "    influx completion bash > /usr/share/bash-completion/completions/influx"
-	elog
-	elog "To prevent sending usage statistics start influxd with --reporting-disabled"
+	elog "The influx cli moved to dev-db/influx-cli package."
 }
 
