@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 EGO_PN="github.com/grafana/grafana/..."
 EGO_SRC="github.com/grafana/grafana"
 S="${WORKDIR}/${P}/src/${EGO_SRC}"
@@ -9,7 +9,7 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="6134e3c"
+	EGIT_COMMIT="409e9bc"
 	ARCHIVE_URI="https://github.com/grafana/grafana/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -33,15 +33,17 @@ QA_EXECSTACK="usr/share/grafana/vendor/phantomjs/phantomjs"
 QA_PRESTRIPPED=${QA_EXECSTACK}
 
 pkg_setup() {
+	ebegin "Creating grafana user and group"
 	enewgroup grafana
 	enewuser grafana -1 -1 /usr/share/grafana grafana
+	eend $?
 }
 
 src_compile() {
 	make gen-go || die
 	LDFLAGS="" go run build.go build  || die
 	make deps-js || die
-        export NODE_OPTIONS="--max-old-space-size=8192"
+	export NODE_OPTIONS="--max-old-space-size=8192"
 	make build-js || die
 }
 
