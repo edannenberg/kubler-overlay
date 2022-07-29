@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 EGO_PN="github.com/timonier/syslog-stdout/..."
 EGO_SRC="github.com/timonier/syslog-stdout"
 S="${WORKDIR}/${P}/src/${EGO_SRC}"
