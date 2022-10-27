@@ -4,14 +4,13 @@
 EAPI=7
 
 MY_PN="${PN//-bin}"
-MY_PV="${PV}.1165"
 
 DESCRIPTION="General-purpose programming language with an emphasis on functional programming"
 HOMEPAGE="https://clojure.org/"
-SRC_URI="https://download.clojure.org/install/clojure-tools-${MY_PV}.tar.gz"
+SRC_URI="https://download.clojure.org/install/clojure-tools-${PV}.tar.gz"
 
 LICENSE="EPL-1.0 Apache-2.0 BSD"
-SLOT="1.11"
+SLOT="0"
 KEYWORDS="amd64 ~x86 ~x86-linux"
 IUSE="+rlwrap"
 
@@ -35,7 +34,7 @@ src_install() {
 	doins deps.edn example-deps.edn tools.edn
 
 	insinto /usr/lib/${MY_PN}/libexec
-	doins clojure-tools-${MY_PV}.jar exec.jar
+	doins clojure-tools-${PV}.jar exec.jar
 
 	insinto /usr/share/${MY_PN}
 	doins clj.1 clojure.1
