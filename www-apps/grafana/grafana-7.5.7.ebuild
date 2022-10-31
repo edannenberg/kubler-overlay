@@ -70,7 +70,7 @@ src_install() {
 	fperms 0750 /var/lib/grafana/{dashboards,plugins}
 }
 
-postinst() {
+pkg_postinst() {
 	elog "${PN} has built-in log rotation. Please see [log.file] section of"
 	elog "/etc/grafana/grafana.ini for related settings."
 	elog
