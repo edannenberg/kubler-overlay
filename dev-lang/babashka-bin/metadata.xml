@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>ed@reshape.de</email>
+	</maintainer>
+	<longdescription lang="en">
+		Native, fast starting Clojure interpreter for scripting
+	</longdescription>
+	<upstream>
+		<remote-id type="github">babashka/babashka</remote-id>
+	</upstream>
+	<!-- <use>
+		<flag name="foo">desc</flag>
+	</use> -->
+</pkgmetadata>
