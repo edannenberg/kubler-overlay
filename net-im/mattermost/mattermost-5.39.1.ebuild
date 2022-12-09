@@ -18,7 +18,7 @@ else
 	inherit golang-vcs-snapshot
 fi
 
-inherit user systemd epatch
+inherit systemd epatch
 
 DESCRIPTION="Open source Slack-alternative in Golang and React"
 HOMEPAGE="https://mattermost.com/"
@@ -30,12 +30,7 @@ KEYWORDS="amd64"
 IUSE="+minimal"
 
 DEPEND=">=dev-lang/go-1.13.4 net-libs/nodejs sys-apps/yarn media-libs/libpng-compat sys-apps/yarn app-arch/zip dev-lang/nasm media-gfx/pngquant"
-RDEPEND=""
-
-pkg_setup() {
-	enewgroup mattermost
-	enewuser mattermost -1 -1 /usr/share/mattermost mattermost
-}
+RDEPEND="acct-group/mattermost acct-user/mattermost"
 
 src_unpack() {
 	golang-vcs-snapshot_src_unpack

@@ -15,7 +15,7 @@ else
 	inherit golang-vcs-snapshot
 fi
 
-inherit user systemd
+inherit systemd
 
 DESCRIPTION="Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB"
 HOMEPAGE="http://grafana.org"
@@ -27,15 +27,10 @@ KEYWORDS="amd64"
 IUSE="+minimal"
 
 DEPEND=">=dev-lang/go-1.13.4 >=net-libs/nodejs-12.0.0[icu] <=net-libs/nodejs-13.0.0[icu] sys-apps/yarn"
-RDEPEND=""
+RDEPEND="acct-group/grafana acct-user/grafana"
 
 QA_EXECSTACK="usr/share/grafana/vendor/phantomjs/phantomjs"
 QA_PRESTRIPPED=${QA_EXECSTACK}
-
-pkg_setup() {
-	enewgroup grafana
-	enewuser grafana -1 -1 /usr/share/grafana grafana
-}
 
 src_compile() {
 	LDFLAGS="" go run build.go build  || die

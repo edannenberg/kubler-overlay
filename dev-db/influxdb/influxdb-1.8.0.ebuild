@@ -6,7 +6,7 @@ EGO_PN="github.com/influxdata/influxdb"
 S="${WORKDIR}/${P}/src/${EGO_PN}"
 
 # the influxdb build script actually requires a git repo for building :/
-inherit golang-vcs user systemd
+inherit golang-vcs systemd
 
 DESCRIPTION="Scalable datastore for metrics, events, and real-time analytics"
 HOMEPAGE="https://influxdata.com"
@@ -17,12 +17,7 @@ KEYWORDS="amd64"
 IUSE="+minimal"
 
 DEPEND="dev-lang/go dev-vcs/git dev-vcs/mercurial"
-RDEPEND=""
-
-pkg_setup() {
-	enewgroup influxdb
-	enewuser influxdb -1 -1 /var/opt/influxdb influxdb
-}
+RDEPEND="acct-group/influxdb acct-user/influxdb"
 
 src_compile() {
 	[[ ${PV} != *9999* ]] && git checkout "tags/v${PV}"

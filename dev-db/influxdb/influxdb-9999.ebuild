@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit user systemd
+inherit systemd
 
 DESCRIPTION="Scalable datastore for metrics, events, and real-time analytics"
 HOMEPAGE="https://influxdata.com"
@@ -23,12 +23,7 @@ else
 fi
 
 DEPEND="dev-lang/go dev-vcs/git dev-lang/rust sys-devel/clang dev-libs/protobuf"
-RDEPEND="cli? ( dev-db/influx-cli )"
-
-pkg_setup() {
-	enewgroup influxdb
-	enewuser influxdb -1 -1 /var/opt/influxdb influxdb
-}
+RDEPEND="acct-group/influxdb acct-user/influxdb cli? ( dev-db/influx-cli )"
 
 src_compile() {
 	PATH="${PATH}:${HOME}/go/bin" LDFLAGS="" make || die

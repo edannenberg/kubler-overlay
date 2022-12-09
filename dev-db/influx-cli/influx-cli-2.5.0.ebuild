@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit bash-completion-r1 user
+inherit bash-completion-r1
 
 DESCRIPTION="CLI for managing resources in InfluxDB v2"
 HOMEPAGE="https://influxdata.com"
@@ -22,8 +22,8 @@ else
 	SRC_URI="https://github.com/influxdata/influx-cli/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
 
-DEPEND="dev-lang/go dev-vcs/git"
-RDEPEND=""
+DEPEND="dev-lang/go dev-vcs/git "
+RDEPEND="acct-group/influxdb acct-user/influxdb"
 
 pkg_setup() {
 	enewgroup influxdb
