@@ -18,7 +18,7 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI='https://github.com/influxdata/influx-cli'
 else
 	inherit vcs-snapshot
-	EGIT_COMMIT="3285a03"
+	EGIT_COMMIT="61c5b4d"
 	SRC_URI="https://github.com/influxdata/influx-cli/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
 
