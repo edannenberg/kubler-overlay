@@ -6,19 +6,20 @@ EGO_PN="github.com/mattermost/mattermost-server/..."
 EGO_SRC="github.com/mattermost/mattermost-server"
 S="${WORKDIR}/${P}/src/${EGO_SRC}"
 S_WEBAPP="${WORKDIR}/${P}/src/github.com/mattermost/mattermost-webapp"
+S_FOCALBOARD="${WORKDIR}/${P}/src/github.com/mattermost/focalboard"
 
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	WEBAPP_EGIT_COMMIT="aa491bd"
+	WEBAPP_EGIT_COMMIT="ebd312f"
 	WEBAPP_ARCHIVE_URI="https://github.com/mattermost/mattermost-webapp/archive/${WEBAPP_EGIT_COMMIT}.tar.gz -> ${PN}-webapp-${PV}.tar.gz"
-	SERVER_EGIT_COMMIT="8cb6718"
+	SERVER_EGIT_COMMIT="ea5f25f"
 	SERVER_ARCHIVE_URI="https://github.com/mattermost/mattermost-server/archive/${SERVER_EGIT_COMMIT}.tar.gz -> ${PN}-server-${PV}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
 fi
 
-inherit user systemd epatch
+inherit systemd epatch
 
 DESCRIPTION="Open source Slack-alternative in Golang and React"
 HOMEPAGE="https://mattermost.com/"
@@ -30,12 +31,7 @@ KEYWORDS="amd64"
 IUSE="+minimal"
 
 DEPEND=">=dev-lang/go-1.13.4 net-libs/nodejs:0/16 media-libs/libpng-compat app-arch/zip dev-lang/nasm media-gfx/pngquant"
-RDEPEND=""
-
-pkg_setup() {
-	enewgroup mattermost
-	enewuser mattermost -1 -1 /usr/share/mattermost mattermost
-}
+RDEPEND="acct-group/mattermost acct-user/mattermost"
 
 src_unpack() {
 	golang-vcs-snapshot_src_unpack
@@ -46,7 +42,7 @@ src_unpack() {
 src_compile() {
 	einfo "building webapp, this is gonna take a while :/"
 	cd "${S_WEBAPP}"
-	make build package || die
+	make dist || die
 	cd "${S}"
 	env GOPATH="${WORKDIR}/${P}" make LDFLAGS="" build-linux package-linux || die
 }
