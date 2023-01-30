@@ -6,14 +6,13 @@ EGO_PN="github.com/mattermost/mattermost-server/..."
 EGO_SRC="github.com/mattermost/mattermost-server"
 S="${WORKDIR}/${P}/src/${EGO_SRC}"
 S_WEBAPP="${WORKDIR}/${P}/src/github.com/mattermost/mattermost-webapp"
-S_FOCALBOARD="${WORKDIR}/${P}/src/github.com/mattermost/focalboard"
 
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	WEBAPP_EGIT_COMMIT="ebd312f"
+	WEBAPP_EGIT_COMMIT="8f099bf"
 	WEBAPP_ARCHIVE_URI="https://github.com/mattermost/mattermost-webapp/archive/${WEBAPP_EGIT_COMMIT}.tar.gz -> ${PN}-webapp-${PV}.tar.gz"
-	SERVER_EGIT_COMMIT="ea5f25f"
+	SERVER_EGIT_COMMIT="63149c4"
 	SERVER_ARCHIVE_URI="https://github.com/mattermost/mattermost-server/archive/${SERVER_EGIT_COMMIT}.tar.gz -> ${PN}-server-${PV}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -37,6 +36,12 @@ src_unpack() {
 	golang-vcs-snapshot_src_unpack
 	mkdir -p "${S_WEBAPP}" || die
 	tar xzf "${DISTDIR}/${PN}-webapp-${PV}.tar.gz" -C "${S_WEBAPP}" --strip 1 || die
+}
+
+src_prepare()
+{
+	epatch "${FILESDIR}/dont-force-boards-plugin.patch"
+	default
 }
 
 src_compile() {
