@@ -50,6 +50,7 @@ src_install() {
 	doins -r public conf
 	! use minimal && doins -r vendor
 
+	dobin bin/linux-amd64/grafana
 	dobin bin/linux-amd64/grafana-cli
 	dobin bin/linux-amd64/grafana-server
 
