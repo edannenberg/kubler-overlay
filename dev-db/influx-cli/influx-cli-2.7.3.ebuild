@@ -18,17 +18,12 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI='https://github.com/influxdata/influx-cli'
 else
 	inherit vcs-snapshot
-	EGIT_COMMIT="61c5b4d"
+	EGIT_COMMIT="8b962c7"
 	SRC_URI="https://github.com/influxdata/influx-cli/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
 
 DEPEND="dev-lang/go dev-vcs/git "
 RDEPEND="acct-group/influxdb acct-user/influxdb"
-
-pkg_setup() {
-	enewgroup influxdb
-	enewuser influxdb -1 -1 /var/opt/influxdb influxdb
-}
 
 src_compile() {
 	PATH="${PATH}:${HOME}/go/bin" LDFLAGS="" make || die
@@ -36,7 +31,7 @@ src_compile() {
 
 src_install() {
 
-	dobin bin/linux/influx
+	dobin bin/linux/amd64/influx
 
 	# remove old influx 1.x completion provided by bash-completion package
 	#[[ -f /usr/share/bash-completion/completions/influx ]] && { echo "wtf" ; rm /usr/share/bash-completion/completions/influx; }
