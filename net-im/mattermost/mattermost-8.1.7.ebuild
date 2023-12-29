@@ -34,15 +34,9 @@ src_unpack() {
 	golang-vcs-snapshot_src_unpack
 }
 
-##src_prepare()
-#{
-#	epatch "${FILESDIR}/dont-force-boards-plugin.patch"
-#	default
-#}
-
 src_compile() {
-  cd "${S}"/webapp
-  make dist
+	cd "${S}"/webapp
+	make dist
 	cd "${S}"/server
 	env GOPATH="${WORKDIR}/${P}" make LDFLAGS="" build-linux package-linux || die
 }
