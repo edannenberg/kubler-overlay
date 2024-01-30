@@ -10,7 +10,7 @@ S_WEBAPP="${WORKDIR}/${P}/src/github.com/mattermost/mattermost-webapp"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="7bf5dcb"
+	EGIT_COMMIT="eb06219"
 	ARCHIVE_URI="https://github.com/mattermost/mattermost/archive/${EGIT_COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -27,7 +27,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="+minimal"
 
-DEPEND=">=dev-lang/go-1.13.4 net-libs/nodejs:0/18 media-libs/libpng-compat app-arch/zip dev-lang/nasm media-gfx/pngquant"
+DEPEND=">=dev-lang/go-1.13.4 net-libs/nodejs:0/16 media-libs/libpng-compat app-arch/zip dev-lang/nasm media-gfx/pngquant"
 RDEPEND="acct-group/mattermost acct-user/mattermost"
 
 src_unpack() {
@@ -35,8 +35,10 @@ src_unpack() {
 }
 
 src_compile() {
+	cd "${S}"/webapp
+	make dist
 	cd "${S}"/server
-	env GOPATH="${WORKDIR}/${P}" make LDFLAGS="" setup-go-work build-client build-linux package-linux || die
+	env GOPATH="${WORKDIR}/${P}" make LDFLAGS="" build-linux package-linux || die
 }
 
 src_install() {

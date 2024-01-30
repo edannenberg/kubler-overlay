@@ -24,7 +24,7 @@ SRC_URI="${ARCHIVE_URI}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 IUSE="+minimal"
 
 DEPEND=">=dev-lang/go-1.13.4 net-libs/nodejs:0/18 media-libs/libpng-compat app-arch/zip dev-lang/nasm media-gfx/pngquant"
