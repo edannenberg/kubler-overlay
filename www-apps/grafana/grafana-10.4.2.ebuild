@@ -9,7 +9,7 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="d3ce857c0eb86f571ffa993a9cd8493b6f47b630"
+	EGIT_COMMIT="22809dea50455ae875624827dd277b17621b4ed4"
 	ARCHIVE_URI="https://github.com/grafana/grafana/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
