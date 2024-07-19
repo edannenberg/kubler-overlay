@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 EGO_PN="github.com/mattermost/mattermost/..."
 EGO_SRC="github.com/mattermost/mattermost"
 S="${WORKDIR}/${P}/src/${EGO_SRC}"
@@ -10,13 +10,13 @@ S_WEBAPP="${WORKDIR}/${P}/src/github.com/mattermost/mattermost-webapp"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="6eb3d42"
+	EGIT_COMMIT="60c5bb4"
 	ARCHIVE_URI="https://github.com/mattermost/mattermost/archive/${EGIT_COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
 fi
 
-inherit systemd epatch
+inherit systemd
 
 DESCRIPTION="Open source Slack-alternative in Golang and React"
 HOMEPAGE="https://mattermost.com/"
