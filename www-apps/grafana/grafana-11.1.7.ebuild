@@ -9,7 +9,7 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="9cdba084a9100c6b11d32eef9d2bd53656c6964a"
+	EGIT_COMMIT="dec13894710f1b3cd3d37a66d258f1d44536c4e5"
 	ARCHIVE_URI="https://github.com/grafana/grafana/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -26,7 +26,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="+minimal"
 
-DEPEND=">=dev-lang/go-1.13.4 net-libs/nodejs:0/18[icu] sys-apps/yarn"
+DEPEND=">=dev-lang/go-1.22.0 <dev-lang/go-1.23.0 net-libs/nodejs:0/20[icu] sys-apps/yarn"
 RDEPEND="acct-group/grafana acct-user/grafana"
 
 QA_EXECSTACK="usr/share/grafana/vendor/phantomjs/phantomjs"
