@@ -9,7 +9,7 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="40d38d9"
+	EGIT_COMMIT="211be3c"
 	ARCHIVE_URI="https://github.com/jwilder/docker-gen/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	inherit golang-vcs-snapshot
 fi
