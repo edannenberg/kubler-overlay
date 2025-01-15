@@ -14,7 +14,7 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI='https://github.com/edannenberg/kubler'
 else
 	inherit vcs-snapshot
-	EGIT_COMMIT="163b2d3"
+	EGIT_COMMIT="cc6ae36"
 	SRC_URI="https://github.com/edannenberg/kubler/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
 
@@ -24,8 +24,8 @@ SLOT="0"
 
 DEPEND=""
 RDEPEND="dev-vcs/git
-         docker? ( app-containers/docker app-misc/jq )
-         podman? ( app-containers/podman )
+         docker? ( app-containers/docker app-containers/docker-cli app-misc/jq )
+         podman? ( app-containers/podman app-misc/jq )
          rlwrap? ( app-misc/rlwrap )"
 
 src_install() {
@@ -36,7 +36,6 @@ src_install() {
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/build-root.sh
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/portage-git-sync.sh
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/sed-or-die.sh
-	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/etc/portage/postsync.d/eix
 	fperms 0755 /usr/share/${PN}/lib/ask.sh
 
 	dosym /usr/share/${PN}/kubler.sh /usr/bin/kubler

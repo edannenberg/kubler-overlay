@@ -24,8 +24,8 @@ SLOT="0"
 
 DEPEND=""
 RDEPEND="dev-vcs/git
-         docker? ( app-containers/docker app-misc/jq )
-         podman? ( app-containers/podman )
+         docker? ( app-containers/docker app-containers/docker-cli app-misc/jq )
+         podman? ( app-containers/podman app-misc/jq )
          rlwrap? ( app-misc/rlwrap )"
 
 src_install() {
