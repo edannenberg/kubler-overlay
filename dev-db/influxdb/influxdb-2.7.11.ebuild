@@ -22,7 +22,7 @@ else
 	SRC_URI="https://github.com/influxdata/influxdb/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
 
-DEPEND="dev-lang/go dev-vcs/git dev-lang/rust sys-devel/clang dev-libs/protobuf"
+DEPEND="dev-lang/go dev-vcs/git dev-lang/rust llvm-core/clang dev-libs/protobuf"
 RDEPEND="acct-group/influxdb acct-user/influxdb cli? ( dev-db/influx-cli )"
 
 src_compile() {
