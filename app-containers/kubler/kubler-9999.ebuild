@@ -36,7 +36,6 @@ src_install() {
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/build-root.sh
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/portage-git-sync.sh
 	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/sed-or-die.sh
-	fperms 0755 /usr/share/${PN}/engine/docker/bob-core/etc/portage/postsync.d/eix
 	fperms 0755 /usr/share/${PN}/lib/ask.sh
 
 	dosym /usr/share/${PN}/kubler.sh /usr/bin/kubler
