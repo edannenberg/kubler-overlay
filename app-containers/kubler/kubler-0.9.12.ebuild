@@ -14,7 +14,7 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI='https://github.com/edannenberg/kubler'
 else
 	inherit vcs-snapshot
-	EGIT_COMMIT="cc6ae36"
+	EGIT_COMMIT="86bddba"
 	SRC_URI="https://github.com/edannenberg/kubler/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 fi
 
