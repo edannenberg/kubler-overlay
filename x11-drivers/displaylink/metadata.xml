@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <longdescription>
+    Binary driver package for DisplayLink USB graphics devices. Installs
+    the proprietary DisplayLinkManager daemon, firmware blobs, udev rules,
+    and a systemd service. Requires the evdi kernel module (x11-drivers/evdi).
+  </longdescription>
+</pkgmetadata>
