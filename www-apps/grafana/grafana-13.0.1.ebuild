@@ -9,7 +9,7 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="284c43c"
+	EGIT_COMMIT="9bbe672d13753e132db266e1f47dcaf362a76e81"
 	ARCHIVE_URI="https://github.com/grafana/grafana/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="amd64"
 	inherit golang-vcs-snapshot
@@ -26,7 +26,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="+minimal"
 
-DEPEND=">=dev-lang/go-1.13.4 net-libs/nodejs:0/16[icu] sys-apps/yarn"
+DEPEND=">=dev-lang/go-1.26.2 net-libs/nodejs:0/24[icu] sys-apps/yarn"
 RDEPEND="acct-group/grafana acct-user/grafana"
 
 QA_EXECSTACK="usr/share/grafana/vendor/phantomjs/phantomjs"
@@ -34,7 +34,7 @@ QA_PRESTRIPPED=${QA_EXECSTACK}
 
 src_compile() {
 	make gen-go || die
-	LDFLAGS="" go run build.go build  || die
+	make build-go || die
 	make deps-js || die
 	export NODE_OPTIONS="--max-old-space-size=8192"
 	make build-js || die
@@ -50,9 +50,7 @@ src_install() {
 	doins -r public conf
 	! use minimal && doins -r vendor
 
-	dobin bin/linux-amd64/grafana
-	dobin bin/linux-amd64/grafana-cli
-	dobin bin/linux-amd64/grafana-server
+	dobin bin/linux/amd64/grafana
 
 	if ! use minimal; then
 		newconfd "${FILESDIR}"/grafana.confd grafana
