@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<use>
+		<flag name="suid">
+			Install the bundled <pkg>chrome-sandbox</pkg> helper setuid-root so
+			Chromium's SUID sandbox works on kernels where unprivileged user
+			namespaces are disabled. Leave disabled if your kernel allows
+			unprivileged user namespaces (the namespace sandbox is then used
+			without any setuid binary).
+		</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">VoidenHQ/voiden</remote-id>
+	</upstream>
+</pkgmetadata>
