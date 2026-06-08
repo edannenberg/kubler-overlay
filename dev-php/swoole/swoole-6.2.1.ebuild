@@ -19,7 +19,7 @@ S="${WORKDIR}/swoole-src-${PV}"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="amd64 ~arm ~arm64 ~riscv ~x86"
-IUSE="brotli cares curl iouring openssl sockets zstd"
+IUSE="brotli cares +curl iouring +openssl sockets zstd"
 
 BDEPEND="virtual/pkgconfig"
 DEPEND="

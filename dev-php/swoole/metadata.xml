@@ -4,4 +4,13 @@
   <upstream>
     <remote-id type="github">swoole/swoole-src</remote-id>
   </upstream>
+  <use>
+    <flag name="brotli">Enable Brotli compression support via <pkg>app-arch/brotli</pkg></flag>
+    <flag name="cares">Enable asynchronous DNS resolution via <pkg>net-dns/c-ares</pkg></flag>
+    <flag name="curl">Enable coroutine-based HTTP client using PHP's curl extension and <pkg>net-misc/curl</pkg></flag>
+    <flag name="iouring">Enable io_uring async I/O backend via <pkg>sys-libs/liburing</pkg></flag>
+    <flag name="openssl">Enable SSL/TLS support via <pkg>dev-libs/openssl</pkg></flag>
+    <flag name="sockets">Enable interoperability with PHP's sockets extension for socket handle sharing</flag>
+    <flag name="zstd">Enable Zstandard compression support via <pkg>app-arch/zstd</pkg></flag>
+  </use>
 </pkgmetadata>

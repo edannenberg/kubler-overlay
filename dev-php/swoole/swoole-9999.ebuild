@@ -17,7 +17,7 @@ EGIT_REPO_URI="https://github.com/swoole/swoole-src.git"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE="brotli cares curl iouring openssl sockets zstd"
+IUSE="brotli cares +curl iouring +openssl sockets zstd"
 
 BDEPEND="virtual/pkgconfig"
 DEPEND="
