@@ -66,8 +66,18 @@ src_install() {
 	doins -r "${S}"/locales "${S}"/resources
 
 	# Fallback libraries Voiden bundles (appindicator, libnotify, ...).
+	# Skip the GTK2 system-tray compat libs (libappindicator, libgconf,
+	# libindicator): they carry unresolved soname deps on libgtk-x11-2.0.so.0
+	# and libdbus-glib-1.so.2 which are not available on modern Gentoo.
+	# Electron falls back gracefully without them.
 	insinto "${instdir}/usr/lib"
-	doins "${S}"/usr/lib/*.so*
+	local f
+	for f in "${S}"/usr/lib/*.so*; do
+		case "${f##*/}" in
+			libappindicator*|libgconf*|libindicator*) ;;
+			*) doins "${f}" ;;
+		esac
+	done
 
 	# Executables.
 	exeinto "${instdir}"
@@ -96,8 +106,8 @@ src_install() {
 	# Icons (renamed Voiden.png -> voiden.png per size).
 	local s
 	for s in 16 32 48 64 128 256; do
-		newicon -s "${s}" \
-			"${S}/usr/share/icons/hicolor/${s}x${s}/apps/Voiden.png" voiden.png
+		insinto "/usr/share/icons/hicolor/${s}x${s}/apps"
+		newins "${S}/usr/share/icons/hicolor/${s}x${s}/apps/Voiden.png" voiden.png
 	done
 
 	# Desktop entry + voiden:// scheme handler.
