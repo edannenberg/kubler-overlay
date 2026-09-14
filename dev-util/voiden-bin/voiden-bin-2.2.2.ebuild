@@ -16,7 +16,7 @@ S="${WORKDIR}/squashfs-root"
 # redistribution grant, hence all-rights-reserved + restricted mirroring.
 LICENSE="all-rights-reserved MIT"
 SLOT="0"
-KEYWORDS="-* ~amd64"
+KEYWORDS="-* amd64"
 IUSE="suid"
 
 RESTRICT="bindist mirror strip"
