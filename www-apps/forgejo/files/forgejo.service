@@ -1,0 +1,36 @@
+[Unit]
+Description=Forgejo, a self-hosted software forge
+Documentation=https://forgejo.org/docs/
+
+AssertPathIsDirectory=/var/lib/gitea
+AssertPathIsReadWrite=/var/lib/gitea
+
+After=network.target
+Requires=network.target
+After=mysqld.service
+After=mariadb.service
+After=postgresql.service
+After=postgresql-13.service
+After=postgresql-14.service
+After=postgresql-15.service
+After=postgresql-16.service
+After=postgresql-17.service
+After=postgresql-18.service
+After=memcached.service
+After=redis.service
+After=valkey.service
+
+[Service]
+User=git
+Group=git
+
+Environment="GITEA_WORK_DIR=/var/lib/gitea" "GITEA_CUSTOM=/var/lib/gitea/custom"
+WorkingDirectory=/var/lib/gitea
+ExecStart=/usr/bin/forgejo web --config /etc/forgejo/app.ini
+
+Restart=always
+PrivateTmp=true
+Nice=5
+
+[Install]
+WantedBy=multi-user.target
