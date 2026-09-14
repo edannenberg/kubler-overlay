@@ -25,7 +25,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="+minimal"
 
-DEPEND=">=dev-lang/go-1.26.2 net-libs/nodejs:0/24[icu] sys-apps/yarn"
+DEPEND=">=dev-lang/go-1.26.6 net-libs/nodejs:0/24[icu] sys-apps/yarn"
 RDEPEND="acct-group/grafana acct-user/grafana"
 
 QA_EXECSTACK="usr/share/grafana/vendor/phantomjs/phantomjs"
