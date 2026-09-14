@@ -23,7 +23,7 @@ else
 		SRC_URI="https://github.com/DisplayLink/evdi/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 	fi
 
-	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+	KEYWORDS="amd64 ~arm ~arm64 ~x86"
 fi
 
 LICENSE="GPL-2 LGPL-2.1+"
@@ -50,10 +50,6 @@ DEPEND="${RDEPEND}
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RESTRICT="!test? ( test )"
-
-PATCHES=(
-	"${FILESDIR}/${PN}-1.14.4-format-truncation.patch"
-)
 
 pkg_setup() {
 	# module/Kconfig

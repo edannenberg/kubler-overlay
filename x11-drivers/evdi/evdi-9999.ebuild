@@ -51,10 +51,6 @@ REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RESTRICT="!test? ( test )"
 
-PATCHES=(
-	"${FILESDIR}/${PN}-1.14.4-format-truncation.patch"
-)
-
 pkg_setup() {
 	# module/Kconfig
 	local CONFIG_CHECK="~FB_VIRTUAL ~I2C ~DRM ~USB_SUPPORT ~USB_ARCH_HAS_HCD MODULES"
