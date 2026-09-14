@@ -11,7 +11,7 @@ if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
 	ARCHIVE_URI="https://github.com/mattermost/mattermost/archive/refs/tags/v${PV}.tar.gz -> ${PN}-${PV}.tar.gz"
-	KEYWORDS="amd64"
+	KEYWORDS="amd64 ~arm64"
 	inherit golang-vcs-snapshot
 fi
 
@@ -23,24 +23,34 @@ SRC_URI="${ARCHIVE_URI}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="amd64 ~arm64"
 IUSE="+minimal"
 
-DEPEND=">=dev-lang/go-1.21.0 net-libs/nodejs:0/24[npm] media-libs/libpng-compat app-arch/zip dev-lang/nasm media-gfx/pngquant"
+DEPEND=">=dev-lang/go-1.26.7 net-libs/nodejs:0/24[npm] media-libs/libpng-compat app-arch/zip dev-lang/nasm media-gfx/pngquant"
 RDEPEND="acct-group/mattermost acct-user/mattermost"
 
 src_unpack() {
 	golang-vcs-snapshot_src_unpack
 }
 
+# Go arch of the host, the upstream build-linux/package-linux targets would
+# also cross-compile and package all other linux arches.
+mm_goarch() {
+	case ${ARCH} in
+		amd64|arm64) echo "${ARCH}" ;;
+		*) die "unsupported ARCH=${ARCH}" ;;
+	esac
+}
+
 src_compile() {
+	local goarch=$(mm_goarch)
 	cd "${S}"/server
-	env GOPATH="${WORKDIR}/${P}" make LDFLAGS="" setup-go-work build-client build-linux package-linux || die
+	env GOPATH="${WORKDIR}/${P}" make LDFLAGS="" setup-go-work build-client build-linux-${goarch} package-linux-${goarch} || die
 }
 
 src_install() {
 	local dist="${S}/server/dist/mattermost"
-	tar xzf "${S}/server/dist"/mattermost-team-linux-amd64.tar.gz -C "${S}/server/dist" || die
+	tar xzf "${S}/server/dist"/mattermost-team-linux-$(mm_goarch).tar.gz -C "${S}/server/dist" || die
 	insinto /opt/mattermost
 	doins -r "${dist}"/client "${dist}"/config "${dist}"/fonts "${dist}"/i18n "${dist}"/logs "${dist}"/templates
 
