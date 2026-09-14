@@ -5,8 +5,8 @@ EAPI=8
 
 inherit systemd udev
 
-MY_FULLVER="6.2.0-30"
-MY_RELEASEDATE="2025-09"
+MY_FULLVER="6.3.0-48"
+MY_RELEASEDATE="2026-06"
 
 DESCRIPTION="Linux driver for DisplayLink USB graphics devices"
 HOMEPAGE="https://www.synaptics.com/products/displaylink-graphics"
@@ -14,11 +14,11 @@ SRC_URI="https://www.synaptics.com/sites/default/files/exe_files/${MY_RELEASEDAT
 
 LICENSE="GPL-2 LGPL-2.1 DisplayLink-EULA"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+KEYWORDS="amd64 ~arm ~arm64 ~x86"
 RESTRICT="bindist mirror"
 
 RDEPEND="
-	<x11-drivers/evdi-1.15
+	x11-drivers/evdi
 	virtual/libusb:1
 "
 BDEPEND="app-arch/unzip"
