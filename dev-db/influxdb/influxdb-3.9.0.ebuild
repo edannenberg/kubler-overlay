@@ -18,15 +18,14 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI='https://github.com/influxdata/influxdb'
 else
 	inherit vcs-snapshot
-	EGIT_COMMIT="0f1816e"
-	SRC_URI="https://github.com/influxdata/influxdb/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://github.com/influxdata/influxdb/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 fi
 
 DEPEND="dev-vcs/git dev-lang/rust llvm-core/clang llvm-core/lld dev-libs/protobuf"
 RDEPEND="acct-group/influxdb acct-user/influxdb cli? ( dev-db/influx-cli )"
 
 src_compile() {
-	GIT_HASH="${EGIT_COMMIT}" cargo build --release || die
+	GIT_HASH="v${PV}" cargo build --release || die
 }
 
 src_install() {

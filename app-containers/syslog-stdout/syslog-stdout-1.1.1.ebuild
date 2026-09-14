@@ -9,8 +9,7 @@ S="${WORKDIR}/${P}/src/${EGO_SRC}"
 if [[ ${PV} = *9999* ]]; then
 	inherit golang-vcs
 else
-	EGIT_COMMIT="026971e"
-	ARCHIVE_URI="https://github.com/timonier/syslog-stdout/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
+	ARCHIVE_URI="https://github.com/timonier/syslog-stdout/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 	inherit golang-vcs-snapshot
 fi
 

@@ -18,8 +18,7 @@ if [[ ${PV} = *9999* ]]; then
 	EGIT_REPO_URI='https://github.com/influxdata/influx-cli'
 else
 	inherit vcs-snapshot
-	EGIT_COMMIT="8cdf401"
-	SRC_URI="https://github.com/influxdata/influx-cli/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://github.com/influxdata/influx-cli/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 fi
 
 DEPEND="dev-lang/go dev-vcs/git "
